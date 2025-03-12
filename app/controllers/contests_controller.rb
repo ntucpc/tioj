@@ -56,6 +56,9 @@ class ContestsController < ApplicationController
       freeze: helpers.to_us(@contest.freeze_after),
       current: helpers.to_us(Time.now.clamp(@contest.start_time, @contest.end_time)),
     }
+  end
+
+  def calculate_dashboard_json!
     dc_bot_userlist = {}
     dc_bot_userlist_tmp = @participants.pluck(:id, :nickname, :username)
     dc_bot_userlist_tmp.each do |user_data|
@@ -94,6 +97,7 @@ class ContestsController < ApplicationController
   def dashboard
     if request.format.json?
       authenticate_admin!
+      calculate_dashboard_json!
       render :json => @dc_bot
     end
   end
