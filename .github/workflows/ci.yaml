@@ -2,7 +2,7 @@ name: CI tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, fhv/fix-ci-test]
   pull_request:
     branches: [main]
   workflow_dispatch
