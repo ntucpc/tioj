@@ -26,7 +26,7 @@ class ContestsHelperTest < ActionView::TestCase
       participants: [1],
       first_ac: {1 => 1},
     }
-    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi')
+    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi', {})
   end
 
   test "ranklist_data ioi-style negative score is correct" do
@@ -51,7 +51,7 @@ class ContestsHelperTest < ActionView::TestCase
       teams: [],
       first_ac: {},
     }
-    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi')
+    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi', {})
   end
 
   test "ranklist_data ioi-style should not display Validating score" do
@@ -73,7 +73,7 @@ class ContestsHelperTest < ActionView::TestCase
       teams: [],
       first_ac: {},
     }
-    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi')
+    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi', {})
   end
   
   test "ranklist_data acm-style score & first_ac is correct" do
@@ -106,7 +106,7 @@ class ContestsHelperTest < ActionView::TestCase
       teams: [],
       first_ac: {1 => 1, 2 => 2},
     }
-    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'acm')
+    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'acm', {})
   end
 
   test "ranklist_data acm-style freeze is correct" do
@@ -136,7 +136,7 @@ class ContestsHelperTest < ActionView::TestCase
       teams: [],
       first_ac: {},
     }
-    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'acm')
+    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'acm', {})
   end
 
   test "ranklist_data new-ioi-style score is correct" do
@@ -173,7 +173,7 @@ class ContestsHelperTest < ActionView::TestCase
       teams: [],
       first_ac: {},
     }
-    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi_new')
+    assert_equal expected_result, ranklist_data(submissions, start_time, freeze_start, 'ioi_new', {})
   end
   
   test "ranklist_data should count ignored participant" do
@@ -184,8 +184,8 @@ class ContestsHelperTest < ActionView::TestCase
     start_time = Time.new(2022, 1, 1, 0, 0, 0)
     freeze_start = Time.new(2022, 1, 1, 1, 0, 0)
     submissions.each_with_index {|x, i| x.created_at = start_time + i + 1}
-    assert_equal [1, 2], ranklist_data(submissions, start_time, freeze_start, 'acm')[:participants]
-    assert_equal [1, 2], ranklist_data(submissions, start_time, freeze_start, 'ioi')[:participants]
+    assert_equal [1, 2], ranklist_data(submissions, start_time, freeze_start, 'acm', {})[:participants]
+    assert_equal [1, 2], ranklist_data(submissions, start_time, freeze_start, 'ioi', {})[:participants]
   end
 end
 
