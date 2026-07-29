@@ -148,7 +148,7 @@ module ContestsHelper
     end
     res.delete_if { |key, value| value.empty? }
     res.each_value {|x| x.each {|item| item[:state].pop}} if ['ioi_new', 'ioicamp'].include? rule
-    {result: res, participants: participants.to_a, first_ac: first_ac}
+    {result: res, participants: participants.to_a, teams: teams.to_a, first_ac: first_ac}
   end
 
   def problem_index_text(index)
