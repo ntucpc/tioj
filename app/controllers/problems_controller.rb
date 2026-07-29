@@ -1,6 +1,4 @@
 class ProblemsController < ApplicationController
-  # before_action :authenticate_user!
-  # From TIOJ 3.0
   before_action :authenticate_user_and_running_if_single_contest!, only: [:show]
   before_action :authenticate_admin!, except: [:index, :show, :ranklist, :ranklist_old]
   before_action :set_problem, only: [:show, :edit, :update, :destroy, :ranklist, :ranklist_old, :rejudge]
@@ -191,13 +189,13 @@ class ProblemsController < ApplicationController
 
   def check_visibility!
     return if effective_admin?
+    raise_not_found if @problem.visible_invisible?
+    # CR(fhv): not sure what should the correct action should be regarding roles
     unless current_user&.can_view?(@problem)
       if @problem.visible_contest?
         if not (@contest&.is_started? and @contest.problems.exists?(@problem.id) and @contest.contest_registrations.where(user_id: current_user&.id).first&.approved)
           redirect_back fallback_location: root_path, :notice => 'Insufficient User Permissions.'
         end
-      elsif @problem.visible_invisible?
-        redirect_back fallback_location: root_path, :notice => 'Insufficient User Permissions.'
       end
     end
   end

@@ -212,15 +212,21 @@ class SubmissionsController < ApplicationController
         @submissions = @submissions.where('submissions.created_at < ?', @contest.freeze_after) \
           .or(@submissions.where(user_id: user_ids))
         # TODO: Add an option to still hide submission after contest
-        # IOICAMP: Make the submissions only show self's sub.
-        # unless @contest.is_ended?
+        unless @contest.is_ended?
           # only self submission
           if user_signed_in?
-            @submissions = @submissions.where(user_id: current_user.id)
+            @submissions = @submissions.where(user_id: user_ids)
           else
             @submissions = Submission.none
             return
           end
+        end
+        # # IOICAMP: Make the submissions only show self's sub.
+        # if user_signed_in?
+        #   @submissions = @submissions.where(user_id: current_user.id)
+        # else
+        #   @submissions = Submission.none
+        #   return
         # end
       end
     else
@@ -250,9 +256,11 @@ class SubmissionsController < ApplicationController
     if @contest
       unless effective_admin?
         # TODO: Add an option to still hide submission after contest
-        raise_not_found if @submission.created_at >= @contest.freeze_after && current_user&.id != @submission.user_id
-        # IOICAMP: Make the submissions only show self's sub.
-        raise_not_found unless current_user&.id == @submission.user_id
+        raise_not_found if @submission.created_at >= @contest.freeze_after && (not user_can_view?)
+        raise_not_found unless @contest.is_ended? || user_can_view?
+        # # IOICAMP: Make the submissions only show self's sub.
+        # raise_not_found if @submission.created_at >= @contest.freeze_after && current_user&.id != @submission.user_id
+        # raise_not_found unless current_user&.id == @submission.user_id
       end
     end
   end
