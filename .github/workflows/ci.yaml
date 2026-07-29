@@ -2,7 +2,7 @@ name: CI tests
 
 on:
   push:
-    branches: [main, fhv/fix-ci-test]
+    branches: [main]
   pull_request:
     branches: [main]
 
