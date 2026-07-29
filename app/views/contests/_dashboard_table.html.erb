@@ -48,8 +48,8 @@
         <td id="cell_solved_user_<%= usr.id %>"></td>
         <td id="cell_penalty_user_<%= usr.id %>"></td>
       <% elsif @contest.type_ioicamp? %>
-        <td id="cell_score_<%= usr.id %>"></td>
-        <td id="cell_penalty_<%= usr.id %>"></td>
+        <td id="cell_score_user_<%= usr.id %>"></td>
+        <td id="cell_penalty_user_<%= usr.id %>"></td>
       <% else %>
         <td id="cell_score_user_<%= usr.id %>"></td>
       <% end %>
@@ -70,6 +70,9 @@
       <% end %>
       <% if @contest.type_acm? %>
         <td id="cell_solved_team_<%= team.id %>"></td>
+        <td id="cell_penalty_team_<%= team.id %>"></td>
+      <% elsif @contest.type_ioicamp? %>
+        <td id="cell_score_team_<%= team.id %>"></td>
         <td id="cell_penalty_team_<%= team.id %>"></td>
       <% else %>
         <td id="cell_score_team_<%= team.id %>"></td>
