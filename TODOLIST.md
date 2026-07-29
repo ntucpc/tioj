@@ -26,4 +26,5 @@
 - [ ] Notification system for problem issue reporting
 - [ ] Migrate to Bootstrap 4
     - [ ] Enhance posts UI
-- [ ] IOICamp stuff CI test
+- [ ] IOICamp roles and dashboard CI test
+- [ ] Submissions filter: Own, Team, Viewable, All...
