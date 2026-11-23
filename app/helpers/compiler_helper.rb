@@ -11,6 +11,7 @@ module CompilerHelper
     ["language-c", ".c", "C11 | GCC 15.2.0 | options: -O2 -std=c11 -lm", "c11"],
     ["language-c", ".c", "C99 | GCC 15.2.0 | options: -O2 -std=c99 -lm", "c99"],
     ["language-c", ".c", "C90 | GCC 15.2.0 | options: -O2 -ansi -lm", "c90"],
+    ["language-python", ".py", "Python 2 | CPython 2.7.18 | options: -m py_compile", "python2"],
     ["language-python", ".py", "Python 3 | CPython 3.14.10 with NumPy 2.5 & Pillow 13 | options: -m py_compile", "python3"],
     ["language-haskell", ".hs", "Haskell | GHC 9.10.3 | options: -O -with-rtsopts=-V0", "haskell"],
     ["language-rust", ".rs", "Rust 2021 | rustc 1.93.1 | options: -O --edition=2021", "rust 2021"],
